@@ -62,7 +62,7 @@ void invHandler();
 
 int factorialWithPointers(int* n);
 int factorialWithOutPointers(int n);
-void PowerWithPointers(int* a, int b);
+void PowerWithPointers(int*a, int b, int res = 1);
 int PowerWithOutPointers(int a, int b);
 
 
@@ -309,12 +309,15 @@ void findSizeOfStruct()
 	printf("Size of Enemy struct is: %d\n", sizeof(Enemy));
 }
 
+//1st task
 void printTimeTapleOfNumber(int n, int i)
 {
 	if (i == 11) return;
 	printf("%d * %d = %d\n", n, i, n * i);
 	printTimeTapleOfNumber(n, i + 1);	
 }
+
+//3rd task
 void invHandler()
 {
 	int id, choice, itemId, count;
@@ -357,7 +360,7 @@ void invHandler()
 	}
 }
 
-
+//2nd task
 int factorialWithPointers (int* n)
 {
 	if (*n < 2) return 1;
@@ -365,30 +368,24 @@ int factorialWithPointers (int* n)
 	return *n * factorialWithPointers(&num);
 }
 int factorialWithOutPointers(int n)
-{
-	int result = 1;
-	while (n > 0)
-	{
-		result *= n;
-		n--;
-	}
-	return result;
+{	
+	if (n < 2) return n;
+	return n * factorialWithOutPointers(n-1);
 }
-void PowerWithPointers(int *a, int b)
+void PowerWithPointers(int* a, int b,int res)
 {
-	int res = *a;
-	for (int i = 1; i < b; i++)
+	
+	if (b < 1)
 	{
-		res *= *a;
+		*a = res;
+		return;
 	}
-	*a = res;
+	res *= *a;
+	b--;
+	PowerWithPointers(a, b, res);
 }
 int PowerWithOutPointers(int a, int b)
 {
-	int result = 1;
-	while (b > 0) {
-		result *= a;
-		b--;
-	}
-	return result;
+	if (b < 1) return 1;
+	return a * PowerWithOutPointers(a, b - 1);
 }
