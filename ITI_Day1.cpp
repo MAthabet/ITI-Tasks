@@ -1,5 +1,5 @@
-
 #define _CRT_SECURE_NO_WARNINGS
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <conio.h>
@@ -65,17 +65,24 @@ int factorialWithOutPointers(int n);
 void PowerWithPointers(int*a, int b, int res = 1);
 int PowerWithOutPointers(int a, int b);
 
+void sortingMenu();
+void employeeMenu();
 
+void insertSort(std::vector<int>* arr);
+void bubbleSort(std::vector<int>* arr);
 
 int main()
 {
 	mainMenu();
 }
+
 void mainMenu() 
 {
 	printf(" 1- find the ASCII code of string\n 2- find the sum and average of array");
 	printf("\n 3- find the tallset and shortest sentence \n 4-find the tresure game \n 5- game elemwnt structs size \n 6- factorial");
-	printf("\n 7- time taple\n 8- Open Inventory \n 9- power \n ");
+	printf("\n 7- time taple\n 8- Open Inventory \n 9- power ");
+	printf("\n 10- sorting Menu");
+	printf("\n 11- Employee Menu");
 	int x;
 	printf("\nEnter Your choice: ");
 	scanf("%d", &x);
@@ -138,6 +145,12 @@ void mainMenu()
 		scanf("%d", &b);
 		PowerWithPointers(&a, b);
 		printf("%d", a);
+		break;
+	case 10:
+		sortingMenu();
+		break;
+	case 11:
+		employeeMenu();
 		break;
 	default:
 		printf("\a please enter correct number");
@@ -290,7 +303,7 @@ void tresureGame(char player)
 }
 
 void returnToMainMenu() {
-	printf("\npress Enter to Retrun to Main Menu...");
+	printf("\npress Enter to Retrun to Previous Menu...");
 	while (_getch() != '\r');
 	system("CLS");
 }
@@ -309,7 +322,6 @@ void findSizeOfStruct()
 	printf("Size of Enemy struct is: %d\n", sizeof(Enemy));
 }
 
-//1st task
 void printTimeTapleOfNumber(int n, int i)
 {
 	if (i == 11) return;
@@ -317,7 +329,6 @@ void printTimeTapleOfNumber(int n, int i)
 	printTimeTapleOfNumber(n, i + 1);	
 }
 
-//3rd task
 void invHandler()
 {
 	int id, choice, itemId, count;
@@ -360,7 +371,6 @@ void invHandler()
 	}
 }
 
-//2nd task
 int factorialWithPointers (int* n)
 {
 	if (*n < 2) return 1;
@@ -388,4 +398,132 @@ int PowerWithOutPointers(int a, int b)
 {
 	if (b < 1) return 1;
 	return a * PowerWithOutPointers(a, b - 1);
+}
+
+void sortingMenu()
+{
+
+	std::vector<int> arr;
+	bool flag = true;
+	while (flag)
+	{
+		system("CLS");
+		printf("1- Enter array Elemnts\n");
+		printf("2- bubble sort\n");
+		printf("3- insertation sort\n");
+		printf("4- return to Main Menu\n");
+
+
+
+		int x;
+		scanf("%d", &x);
+
+		switch (x)
+		{
+		case 1:
+			printf("how many elemnts you wanna add: \n");
+			int y;
+			scanf("%d", &y);
+			printf("enter intgers \n");
+			for (int i = 0; i < y; i++)
+			{
+				int b;
+				scanf("%d", &b);
+				arr.push_back(b);
+			}
+
+			break;
+		case 2:
+			printf("before bubble sort:\n");
+			for (int i : arr)
+				printf("%d, ", i);
+
+			printf("\n");
+			printf("After bubble sort:\n");
+			bubbleSort(&arr);
+
+			for (int i : arr)
+				printf("%d, ", i);
+			returnToMainMenu();
+			break;
+		case 3:
+			printf("\nbefore insertation sort:\n");
+			for (int i : arr)
+				printf("%d, ", i);
+			printf("\n after insertation sort:\n");
+			insertSort(&arr);
+
+			for (int i : arr)
+				printf("%d, ", i);
+			returnToMainMenu();
+			break;
+		case 4:
+			
+			flag = false;
+			break;
+
+		default:
+			break;
+		}
+	}
+	returnToMainMenu();
+	mainMenu();
+}
+void employeeMenu()
+{
+
+}
+
+void bubbleSort(std::vector<int>* arr)
+{
+	int size = arr->size();
+	for (int i = 0; i < size - 1; i++)
+	{
+		for (int j = i + 1; j < size; j++)
+		{
+			if ((*arr)[i] < (*arr)[j])
+			{
+				int temp = (*arr)[i];
+				(*arr)[i] = (*arr)[j];
+				(*arr)[j] = temp;
+			}
+		}
+	}
+}
+void insertSort(std::vector<int>* arr)
+{
+	int size = arr->size();
+	for (int i = 0; i < size; i++)
+	{
+		int key = (*arr)[i];
+		int j = i - 1;
+		while (j >= 0 && (*arr)[j] > key)
+		{
+			(*arr)[j + 1] = (*arr)[j];
+			j--;
+		}
+		(*arr)[j + 1] = key;
+		//for (int j = i - 1; j > -1; j--)
+		//{
+		//	if (key > (*arr)[j])
+		//	{
+		//		arr->insert(arr->begin() + j, key);
+		//		arr->erase(arr->begin() + i+1);
+
+		//		/*printf("%d - %d: ", i, j);
+		//		for (int A : *arr)
+		//		{
+		//			printf("%d, ", A);
+
+		//		}
+		//		printf("\n");*/
+
+		//		i = j-1;
+		//		break;
+		//	}
+		//}
+
+	}
+
+
 }
