@@ -9,6 +9,7 @@
 #include <iostream>
 
 
+
 struct Item
 {
 	int itemID;
@@ -140,6 +141,7 @@ struct LinkedList
 
 };
 
+LinkedList Employees;
 
 void mainMenu();
 void sumAndAvg();
@@ -164,33 +166,32 @@ void bubbleSort(std::vector<int>* arr);
 
 int main()
 {
-	LinkedList employees;
 	Node emp0 = Node("bla", 4);
 	Node emp1 = Node("Mohamed", 5);
 	Node emp2 = Node("Alaa", 6);
 
-	employees.addEmp(&emp0);
+	Employees.addEmp(&emp0);
 
-	employees.addEmp(&emp1);
+	Employees.addEmp(&emp1);
 
-	employees.addEmp(&emp2);
+	Employees.addEmp(&emp2);
 
-	employees.printAll();
+	Employees.printAll();
 
 	std::cout << "\nName of employee with ID ";
 
 	int x;
 
 	std::cin >> x;
-	std::cout << (employees.findEmp(x))->Name;
+	std::cout << (Employees.findEmp(x))->Name;
 
 	Node emp3 = Node("blabla", 13);
-	employees.replaceEmp(&emp0, &emp3);
+	Employees.replaceEmp(&emp0, &emp3);
 	std::cout << "\nName of employees after replacment\n ";
-	employees.printAll();
-	employees.deleteEmpByID(13);
+	Employees.printAll();
+	Employees.deleteEmpByID(13);
 	std::cout << "\nName of employees after deletion\n ";
-	employees.printAll();
+	Employees.printAll();
 	returnToMainMenu();
 	mainMenu();
 }
@@ -589,7 +590,7 @@ void sortingMenu()
 void employeeMenu()
 {
 	bool flag = true;
-	LinkedList Employees;
+	//LinkedList Employees;
 	while (flag)
 	{
 		system("CLS");
