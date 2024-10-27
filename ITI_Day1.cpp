@@ -5,6 +5,9 @@
 #include <conio.h>
 #include "struct.h"
 #include <vector>
+#include <string>
+#include <iostream>
+
 
 struct Item
 {
@@ -16,7 +19,6 @@ struct Item
 		ItemCount = y;
 	}
 };
-
 struct Inventory
 {
 	int playerID;
@@ -50,6 +52,95 @@ struct Inventory
 	}
 };
 
+struct Node
+{
+	int ID;
+	std::string Name;
+	Node* next = NULL;
+	Node* prev = NULL;
+	void printnNode()
+	{
+		std::cout << "Name: " << Name << "\n";
+		std::cout << "ID: " << ID << "\n";
+	}
+	Node(std::string name, int id)
+	{
+		Name = name;
+		ID = id;
+	}
+};
+struct LinkedList
+{
+	Node* Head = NULL;
+	Node* tail = NULL;
+	void addEmp(Node* emp)
+	{
+
+		if (Head == NULL)
+		{
+			Head = emp;
+			tail = emp;
+			return;
+		}
+
+
+		Node* current = Head;
+		while (current->next != NULL)
+		{
+			current = current->next;
+		}
+		current->next = emp;
+		emp->prev = current;
+
+	}
+	Node* findEmp(int id)
+	{
+		Node* current = Head;
+
+
+		while (current != NULL)
+		{
+			if (current->ID == id) return current;
+			current = current->next;
+		}
+		return NULL;
+	}
+
+	void deleteEmpByID(int id)
+	{
+		Node* emp = findEmp(id);
+		if (emp == Head)
+			Head = emp->next;
+		if (emp->prev != NULL)
+			(emp->prev)->next = emp->next;
+		if (emp->next != NULL)
+			(emp->next)->prev = emp->prev;
+	}
+
+	void replaceEmp(Node* Old, Node* New)
+	{
+		if (Old == Head) Head = New;
+		New->next = Old->next;
+		New->prev = Old->prev;
+		if (Old->prev != NULL)
+			(Old->prev)->next = New;
+		if (New->next != NULL)
+			(New->next)->prev = New;
+	}
+	void printAll()
+	{
+		Node* current = Head;
+
+		while (current != NULL)
+		{
+			current->printnNode();
+			current = current->next;
+		}
+	}
+
+};
+
+
 void mainMenu();
 void sumAndAvg();
 void tallestAndShortest();
@@ -73,6 +164,34 @@ void bubbleSort(std::vector<int>* arr);
 
 int main()
 {
+	LinkedList employees;
+	Node emp0 = Node("bla", 4);
+	Node emp1 = Node("Mohamed", 5);
+	Node emp2 = Node("Alaa", 6);
+
+	employees.addEmp(&emp0);
+
+	employees.addEmp(&emp1);
+
+	employees.addEmp(&emp2);
+
+	employees.printAll();
+
+	std::cout << "\nName of employee with ID ";
+
+	int x;
+
+	std::cin >> x;
+	std::cout << (employees.findEmp(x))->Name;
+
+	Node emp3 = Node("blabla", 13);
+	employees.replaceEmp(&emp0, &emp3);
+	std::cout << "\nName of employees after replacment\n ";
+	employees.printAll();
+	employees.deleteEmpByID(13);
+	std::cout << "\nName of employees after deletion\n ";
+	employees.printAll();
+	returnToMainMenu();
 	mainMenu();
 }
 
@@ -413,8 +532,6 @@ void sortingMenu()
 		printf("3- insertation sort\n");
 		printf("4- return to Main Menu\n");
 
-
-
 		int x;
 		scanf("%d", &x);
 
@@ -471,6 +588,79 @@ void sortingMenu()
 }
 void employeeMenu()
 {
+	bool flag = true;
+	LinkedList Employees;
+	while (flag)
+	{
+		system("CLS");
+		printf("1- Add Employee\n");
+		printf("2- Delete Employee By ID\n");
+		printf("3- Find an Employee\n");
+		printf("4- Replace employees\n");
+		printf("5- print All Employees\n");
+		printf("6- sort Employees\n");
+		printf("7- exit\n");
+		int x;
+		scanf("%d", &x);
+		system("CLS");
+		switch (x)
+		{
+		case 1:
+		{
+			printf("insert employee's ID\n");
+			int id;
+			std::cin >> id;
+			printf("insert employee's name\n");
+			std::string temp;
+			std::cin >> temp;
+			Node emp0 = Node(temp, id);
+			Employees.addEmp(&emp0);
+			std::cout << "Employee with ID: "<<emp0.ID<<" And name : " << emp0.Name;
+			std::cout << " is added\n";
+			
+			returnToMainMenu();
+			break;
+		}
+		case 2:
+			printf("insert employee's ID\n");
+			int idToDel;
+			std::cin >> idToDel;
+			Employees.deleteEmpByID(idToDel);
+			break;
+		case 3:
+			printf("insert employee's ID\n");
+			int idToFind;
+			std::cin >> idToFind;
+			std::cout << "Employees with ID : " << idToFind;
+			std::cout << " is Named : " << (Employees.findEmp(idToFind))->Name;
+			returnToMainMenu();
+			break;
+		case 4:
+			printf("insert new employee's ID to add\n");
+			int newID;
+			std::cin >> newID;
+			printf("insert old employee's ID to be rplaced\n");
+			int oldID;
+			std::cin >> oldID;
+			Employees.replaceEmp(Employees.findEmp(oldID), Employees.findEmp(newID));
+			break;
+		case 5:
+			printf("Emp List\n");
+			Employees.printAll();
+			returnToMainMenu();
+			break;
+		case 6:
+			//TODO:sort List
+		case 7:
+			flag = false;
+			break;
+		default:
+			break;
+		}
+	}
+
+	returnToMainMenu();
+	mainMenu();
 
 }
 
