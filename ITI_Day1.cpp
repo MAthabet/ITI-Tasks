@@ -100,6 +100,34 @@ struct LinkedList
 		emp->next = NULL;
 		tail = emp;
 	}
+	void push(Node node)
+	{
+		Node* NewNode = new Node(node.Name, node.ID);
+		if (Head == NULL)
+		{
+			Head = NewNode;
+			tail = NewNode;
+			NewNode->next = NULL;
+			NewNode->prev = NULL;
+			return;
+		}
+		tail->next = NewNode;
+		NewNode->prev = tail;
+		NewNode->next = NULL;
+		tail = NewNode;
+	}
+	Node* getNode(int index)
+	{
+		if (index > Size()) return NULL;
+
+		Node* current = Head;
+		for (int i = 0; i < index; i++)
+		{
+			current = current->next;
+		}
+		
+		return current;
+	}
 	Node* findEmp(int id)
 	{
 		Node* current = Head;
@@ -131,7 +159,21 @@ struct LinkedList
 		if (emp->next != NULL)
 			(emp->next)->prev = emp->prev;
 	}
-
+	void swap(int i, int j)
+	{
+		Node* Old = getNode(i);
+		Node* New = getNode(j);
+		if (Old == Head) Head = New;
+		if (Head == New) Head = Old;
+		if (Old == tail) tail = New;
+		if (tail == New) tail = Old;
+		Node* temp = New->next;
+		New->next = Old->next;
+		Old->next = temp;
+		temp = New->prev;
+		New->prev = Old->prev;
+		Old->prev = temp;
+	}
 	void replaceEmp(Node* Old, Node* New)
 	{
 		if (Old == Head) Head = New;
@@ -154,9 +196,9 @@ struct LinkedList
 		}
 	}
 };
-
 LinkedList Employees;
 
+#pragma region Funch_dec
 void mainMenu();
 void sumAndAvg();
 void tallestAndShortest();
@@ -178,20 +220,26 @@ void employeeMenu();
 void insertSort(std::vector<int>* arr);
 void bubbleSort(std::vector<int>* arr);
 
+LinkedList mergeSort(LinkedList* LL);
+#pragma endregion  
 int main()
 {
-	Node emp0 = Node("bla", 4);
+	Node emp0 = Node("bla", 7);
 	Node emp1 = Node("Mohamed", 5);
 	Node emp2 = Node("Alaa", 6);
-
+	Node emp3 = Node("Ahmed", 13);
 	Employees.addEmp(&emp0);
 
 	Employees.addEmp(&emp1);
 
 	Employees.addEmp(&emp2);
 
+	Employees.addEmp(&emp3);
 	Employees.printAll();
-
+	
+	Employees = mergeSort(&Employees);
+	std::cout << "\nName of employees after sort \n";
+	Employees.printAll(); 
 	std::cout << "\nName of employee with ID ";
 
 	int x;
@@ -200,19 +248,20 @@ int main()
 	if (Employees.findEmp(x) != NULL)
 	std::cout << (Employees.findEmp(x))->Name;
 	else
-	std::cout << "there is no employee with id " << x;
+	std::cout << "there is no employee with id \n" << x;
 
-	Node emp3 = Node("blabla", 13);
-	Employees.replaceEmp(&emp0, &emp3);
-	std::cout << "\nName of employees after replacment\n ";
+	Node emp4 = Node("blabla", 13);
+	Employees.replaceEmp(&emp0, &emp4);
+	std::cout << "\n\nName of employees after replacment\n";
 	Employees.printAll();
 	Employees.deleteEmpByID(13);
-	std::cout << "\nName of employees after deletion\n ";
+	std::cout << "\nName of employees after deletion\n";
 	Employees.printAll();
 	returnToMainMenu();
 	mainMenu();
 }
 
+#pragma region day1_tasks
 void mainMenu() 
 {
 	printf(" 1- find the ASCII code of string\n 2- find the sum and average of array");
@@ -450,7 +499,9 @@ void printOutter() {
 	for (int i = 0; i < 8; i++) printf("-");
 	printf("+\n");
 }
+#pragma endregion
 
+#pragma region struct_tasks
 void findSizeOfStruct() 
 {
 	printf("Size of position struct is: %d\n", sizeof(Position));
@@ -536,6 +587,7 @@ int PowerWithOutPointers(int a, int b)
 	if (b < 1) return 1;
 	return a * PowerWithOutPointers(a, b - 1);
 }
+#pragma endregion
 
 void sortingMenu()
 {
@@ -735,4 +787,65 @@ void insertSort(std::vector<int>* arr)
 
 }
 
+LinkedList mergeSort(LinkedList* LL)
+{
+	int size = LL->Size();
+	int last = size - 1;
+	int first = 0;
+	if (size == 1) return *LL;
+	if (size == 2)
+	{
+		if ((LL->getNode(first))->ID < (LL->getNode(last))->ID)
+			LL->swap(first,last);
+		return *LL;
+	}
+	
+
+	int mid = (first + last) / 2;
+	LinkedList ll1, ll2;
+	for (int i = first; i <= mid; i++)
+	{
+		Node node = *(LL->getNode(i));
+		ll1.push(node);
+	}
+	for (int i = mid+1; i <= last; i++)
+	{
+		Node node = *(LL->getNode(i));
+		ll2.push(node);
+	}
+
+	ll1 = mergeSort(&ll1);
+	ll2 = mergeSort(&ll2);
+
+	int i = 0;
+	int j = 0;
+	int ll1Size = ll1.Size();
+	int ll2Size = ll2.Size();
+	LinkedList sorted;
+	while (i < ll1Size && j < ll2Size)
+	{
+		if (ll1.getNode(i)->ID < ll2.getNode(j)->ID)
+		{
+			sorted.push(*(ll2.getNode(j)));
+			j++;
+		}
+		else
+		{
+			sorted.push(*(ll1.getNode(i)));
+			i++;
+		}
+	}
+	if (i >= ll1Size)
+	{
+		for (;j< ll2Size;j++)
+			sorted.push(*(ll2.getNode(j)));
+		return sorted;
+	}
+	if (j >= ll2Size)
+	{
+		for (;i < ll1Size;i++)
+			sorted.push(*(ll1.getNode(i)));
+		return sorted;
+	}
+}
 
