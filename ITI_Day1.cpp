@@ -163,10 +163,11 @@ struct LinkedList
 	{
 		Node* Old = getNode(i);
 		Node* New = getNode(j);
+
 		if (Old == Head) Head = New;
-		if (Head == New) Head = Old;
+		else if (Head == New) Head = Old;
 		if (Old == tail) tail = New;
-		if (tail == New) tail = Old;
+		else if (tail == New) tail = Old;
 		Node* temp = New->next;
 		New->next = Old->next;
 		Old->next = temp;
@@ -227,7 +228,7 @@ int main()
 	Node emp0 = Node("bla", 7);
 	Node emp1 = Node("Mohamed", 5);
 	Node emp2 = Node("Alaa", 6);
-	Node emp3 = Node("Ahmed", 13);
+	Node emp3 = Node("Ahmed", 0);
 	Employees.addEmp(&emp0);
 
 	Employees.addEmp(&emp1);
@@ -790,17 +791,27 @@ void insertSort(std::vector<int>* arr)
 LinkedList mergeSort(LinkedList* LL)
 {
 	int size = LL->Size();
-	int last = size - 1;
-	int first = 0;
+	
 	if (size == 1) return *LL;
 	if (size == 2)
 	{
-		if ((LL->getNode(first))->ID < (LL->getNode(last))->ID)
-			LL->swap(first,last);
+		Node* temp = LL->getNode(0);
+		Node* temp1 = LL->getNode(1);
+		if (temp->ID < temp1->ID)
+		{
+			//swap but it is just 2 elemnts array :D
+			LL->Head = temp1;
+			temp1->next = temp;
+			temp1->prev = NULL;
+			LL->tail = temp;
+			temp->prev = temp1;
+			temp->next = NULL;
+		}
 		return *LL;
 	}
 	
-
+	int last = size - 1;
+	int first = 0;
 	int mid = (first + last) / 2;
 	LinkedList ll1, ll2;
 	for (int i = first; i <= mid; i++)
