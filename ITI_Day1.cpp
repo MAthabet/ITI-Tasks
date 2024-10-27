@@ -74,25 +74,31 @@ struct LinkedList
 {
 	Node* Head = NULL;
 	Node* tail = NULL;
+	int Size()
+	{
+		Node* current = Head;
+		int size = 0;
+		while (current != NULL)
+		{
+			size++;
+			current = current->next;
+		}
+		return size;
+	}
 	void addEmp(Node* emp)
 	{
-
 		if (Head == NULL)
 		{
 			Head = emp;
 			tail = emp;
+			emp->next = NULL;
+			emp->prev = NULL;
 			return;
 		}
-
-
-		Node* current = Head;
-		while (current->next != NULL)
-		{
-			current = current->next;
-		}
-		current->next = emp;
-		emp->prev = current;
-
+		tail->next = emp;
+		emp->prev = tail;
+		emp->next = NULL;
+		tail = emp;
 	}
 	Node* findEmp(int id)
 	{
@@ -111,7 +117,15 @@ struct LinkedList
 	{
 		Node* emp = findEmp(id);
 		if (emp == Head)
+		{
 			Head = emp->next;
+			Head->prev = NULL;
+		}
+		if (emp == tail)
+		{
+			tail = emp->prev;
+			tail->next = NULL;
+		}
 		if (emp->prev != NULL)
 			(emp->prev)->next = emp->next;
 		if (emp->next != NULL)
@@ -121,6 +135,7 @@ struct LinkedList
 	void replaceEmp(Node* Old, Node* New)
 	{
 		if (Old == Head) Head = New;
+		if (Old == tail) tail = New;
 		New->next = Old->next;
 		New->prev = Old->prev;
 		if (Old->prev != NULL)
@@ -138,7 +153,6 @@ struct LinkedList
 			current = current->next;
 		}
 	}
-
 };
 
 LinkedList Employees;
@@ -183,7 +197,10 @@ int main()
 	int x;
 
 	std::cin >> x;
+	if (Employees.findEmp(x) != NULL)
 	std::cout << (Employees.findEmp(x))->Name;
+	else
+	std::cout << "there is no employee with id " << x;
 
 	Node emp3 = Node("blabla", 13);
 	Employees.replaceEmp(&emp0, &emp3);
@@ -646,7 +663,6 @@ void employeeMenu()
 			Employees.replaceEmp(Employees.findEmp(oldID), Employees.findEmp(newID));
 			break;
 		case 5:
-			printf("Emp List\n");
 			Employees.printAll();
 			returnToMainMenu();
 			break;
@@ -718,3 +734,5 @@ void insertSort(std::vector<int>* arr)
 
 
 }
+
+
