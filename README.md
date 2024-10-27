@@ -1,1 +1,1 @@
-Tasks for thursday 24/10/2024
+Tasks for sunday 27/10/2024
