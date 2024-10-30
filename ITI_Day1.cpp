@@ -371,21 +371,24 @@ struct BinaryTree
 		
 		//node has 2 child
 		BTNode* minNode = student->R;
-
-		if (student->parent->R = student)
+		if (head == student)
 		{
-			student->parent->R = minNode;
+			head = minNode;
+		}
+		else if (student->parent->L == student)
+		{
+			student->parent->L = minNode;
 		}
 		else
 		{
-			student->parent->L = minNode;
+			student->parent->R = minNode;
 		}
 		while (minNode->L != NULL)
 		{
 			minNode = minNode->L;
 		}
 		minNode->L = student->L;
-		minNode->parent = student->parent;
+		head->parent = NULL;
 
 		return 0;
 	}
@@ -1136,7 +1139,7 @@ void bstMenu()
 
 	printf("\nAll tree elemnts ....\n");
 	t.printTree(t.head);
-	t.remove(&n9);
+	t.remove(&n5);
 	std::cout << "\nafter removing\n";
 	t.printTree(t.head);
 }
