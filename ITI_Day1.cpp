@@ -362,7 +362,7 @@ struct BinaryTree
 			else
 			{
 				if (student->parent->L == student) student->parent->L = child;
-				else student->parent->L = child;
+				else student->parent->R = child;
 			}
 			child->parent = student->parent;
 
