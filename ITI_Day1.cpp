@@ -59,7 +59,7 @@ struct Node
 	std::string Name;
 	Node* next = NULL;
 	Node* prev = NULL;
-	void printnNode()
+	void printNode()
 	{
 		std::cout << "Name: " << Name << "\n";
 		std::cout << "ID: " << ID << "\n";
@@ -192,12 +192,198 @@ struct LinkedList
 
 		while (current != NULL)
 		{
-			current->printnNode();
+			current->printNode();
 			current = current->next;
 		}
 	}
 };
 LinkedList Employees;
+struct Qeueu
+{
+	Node* first = NULL;
+	Node* last = NULL;
+
+	void enqueue(Node* n)
+	{
+		if (first == NULL)
+		{
+			first = n;
+			first->next = NULL;
+		}
+		else
+		{
+			last->prev = n;
+			n->next = last;
+		}
+		last = n;
+	}
+	Node* dequeue()
+	{
+		Node* temp = first;
+		first = first->prev;
+		first->next = NULL;
+		return temp;
+	}
+	Node* findNode(int id)
+	{
+		Node* n = first;
+		while (n != NULL)
+		{
+			if (n->ID == id) break;
+			n = n->prev;
+		}
+		return n;
+	}
+	void enqeueuAtIndex(Node* node, int I)
+	{
+		Node* n = first;
+
+		if (I == 0) first = node;
+
+
+		while (I > 0)
+		{
+			n = n->prev;
+			I--;
+		}
+		if (n->next != NULL) n->next->prev = node;
+		node->next = n->next;
+		node->prev = n;
+		n->next = node;
+
+
+
+		first->next = NULL;
+	}
+	void printQ()
+	{
+		Node* n = first;
+		while (n != NULL)
+		{
+			n->printNode();
+			n = n->prev;
+		}
+	}
+
+};
+
+struct BTNode
+{
+	int ID;
+	std::string name;
+	BTNode* R = NULL;
+	BTNode* L = NULL;
+	BTNode* parent = NULL;
+	BTNode(int id, std::string s)
+	{
+		name = s;
+		ID = id;
+	}
+	void printBTNode()
+	{
+		std::cout << "\nStudent Name : " << name;
+		std::cout << " Student ID : " << ID;
+	}
+};
+
+struct BinaryTree
+{
+	BTNode* head = NULL;
+
+	void insert(BTNode* n)
+	{
+		BTNode* current = head;
+		BTNode* parent = NULL;
+
+		if (current == NULL)
+		{
+			head = n;
+			n->parent = parent;
+			return;
+		}
+		while (current != NULL)
+		{
+			parent = current;
+			if (n->ID > current->ID) current = current->R;
+			else current = current->L;
+		}
+		current = n;
+		if (current->ID > parent->ID) parent->R = n;
+		else parent->L = n;
+		n->parent = parent;
+	}
+	BTNode* find(int id)
+	{
+		BTNode* current = head;
+		while (current != NULL && current->ID != id)
+		{
+
+			if (current->ID < id) current = current->R;
+			else current = current->L;
+		}
+		return current;
+	}
+	int remove(BTNode* student)
+	{
+		// node not found
+		if (find(student->ID) == NULL) return -1;
+
+		// node has no children
+		if (student->L == NULL && student->R == NULL)
+		{
+			if (student == head)
+			{
+				head = NULL;
+			}
+			else
+			{
+				if (student->parent->L == student)
+				{
+					student->parent->L = NULL;
+				}
+				else
+				{
+					student->parent->R = NULL;
+				}
+			}
+			return 0;
+		}
+
+		// node has only one child
+		if (student->L == NULL || student->R == NULL)
+		{
+			BTNode* child;
+			if (student->L == NULL) child = student->R;
+
+			else child = student->L;
+
+			if (student == head) head = child;
+
+			else
+			{
+				if (student->parent->L == student) student->parent->L = child;
+				else student->parent->L = child;
+			}
+			child->parent = student->parent;
+
+			return 0;
+		}
+
+		//TODO : node has 2 child
+
+
+		return 0;
+	}
+
+	void printTree(BTNode* node) {
+
+		if (node == NULL) return;
+
+		printTree(node->L);
+		node->printBTNode();
+		printTree(node->R);
+	}
+};
 
 #pragma region Funch_dec
 void mainMenu();
@@ -222,43 +408,13 @@ void insertSort(std::vector<int>* arr);
 void bubbleSort(std::vector<int>* arr);
 
 LinkedList mergeSort(LinkedList* LL);
+
+void qeueuMenu();
+void bstMenu();
 #pragma endregion  
 int main()
 {
-	Node emp0 = Node("bla", 7);
-	Node emp1 = Node("Mohamed", 5);
-	Node emp2 = Node("Alaa", 6);
-	Node emp3 = Node("Ahmed", 0);
-	Employees.addEmp(&emp0);
-
-	Employees.addEmp(&emp1);
-
-	Employees.addEmp(&emp2);
-
-	Employees.addEmp(&emp3);
-	Employees.printAll();
 	
-	Employees = mergeSort(&Employees);
-	std::cout << "\nName of employees after sort \n";
-	Employees.printAll(); 
-	std::cout << "\nName of employee with ID ";
-
-	int x;
-
-	std::cin >> x;
-	if (Employees.findEmp(x) != NULL)
-	std::cout << (Employees.findEmp(x))->Name;
-	else
-	std::cout << "there is no employee with id \n" << x;
-
-	Node emp4 = Node("blabla", 13);
-	Employees.replaceEmp(&emp0, &emp4);
-	std::cout << "\n\nName of employees after replacment\n";
-	Employees.printAll();
-	Employees.deleteEmpByID(13);
-	std::cout << "\nName of employees after deletion\n";
-	Employees.printAll();
-	returnToMainMenu();
 	mainMenu();
 }
 
@@ -270,6 +426,8 @@ void mainMenu()
 	printf("\n 7- time taple\n 8- Open Inventory \n 9- power ");
 	printf("\n 10- sorting Menu");
 	printf("\n 11- Employee Menu");
+	printf("\n 12- Qeueu Menu");
+	printf("\n 13- Binary Tree Menu");
 	int x;
 	printf("\nEnter Your choice: ");
 	scanf("%d", &x);
@@ -338,6 +496,12 @@ void mainMenu()
 		break;
 	case 11:
 		employeeMenu();
+		break;
+	case 12:
+		qeueuMenu();
+		break;
+	case 13:
+		bstMenu();
 		break;
 	default:
 		printf("\a please enter correct number");
@@ -590,6 +754,7 @@ int PowerWithOutPointers(int a, int b)
 }
 #pragma endregion
 
+#pragma region day3_tasks
 void sortingMenu()
 {
 
@@ -659,6 +824,40 @@ void sortingMenu()
 }
 void employeeMenu()
 {
+	Node emp0 = Node("bla", 7);
+	Node emp1 = Node("Mohamed", 5);
+	Node emp2 = Node("Alaa", 6);
+	Node emp3 = Node("Ahmed", 0);
+	Employees.addEmp(&emp0);
+
+	Employees.addEmp(&emp1);
+
+	Employees.addEmp(&emp2);
+
+	Employees.addEmp(&emp3);
+	Employees.printAll();
+
+	Employees = mergeSort(&Employees);
+	std::cout << "\nName of employees after sort \n";
+	Employees.printAll();
+	std::cout << "\nName of employee with ID ";
+
+	int x;
+
+	std::cin >> x;
+	if (Employees.findEmp(x) != NULL)
+		std::cout << (Employees.findEmp(x))->Name;
+	else
+		std::cout << "there is no employee with id \n" << x;
+
+	Node emp4 = Node("blabla", 13);
+	Employees.replaceEmp(&emp0, &emp4);
+	std::cout << "\n\nName of employees after replacment\n";
+	Employees.printAll();
+	Employees.deleteEmpByID(13);
+	std::cout << "\nName of employees after deletion\n";
+	Employees.printAll();
+	returnToMainMenu();
 	bool flag = true;
 	//LinkedList Employees;
 	while (flag)
@@ -859,4 +1058,67 @@ LinkedList mergeSort(LinkedList* LL)
 		return sorted;
 	}
 }
+#pragma endregion
 
+#pragma region day4_tasks
+void qeueuMenu()
+{
+	Qeueu q;
+	Node a = Node ("a" ,1);
+	Node b = Node ("b" ,2);
+	Node c = Node ("c" ,3);
+
+	q.enqueue(&a);
+	q.enqueue(&b);
+	q.enqueue(&c);
+	printf("current Queue:\n");
+	q.printQ();
+
+	printf("dequeued ID: %d \n", q.dequeue()->ID);
+
+	printf("trying to find employee with ID:2 .....");
+	Node* n = q.findNode(2);
+	if (n == NULL)
+		std::cout << "NOT FOUND";
+	else
+		std::cout << n->Name << "\n";
+
+	Node d = Node("d", 4);
+
+	q.enqeueuAtIndex(&d, 0);
+	q.printQ();
+	std::cout << "\n-------\n";
+
+	Node e = Node("e",5);
+
+	q.enqeueuAtIndex(&e, 1);
+	q.printQ();
+}
+
+void bstMenu()
+{
+	BTNode n1 = BTNode(5, "a");
+	BTNode n2 = BTNode(1, "b");
+	BTNode n3 = BTNode(9, "c");
+	BinaryTree t;
+	t.insert(&n1);
+	t.insert(&n2);
+	t.insert(&n3);
+	std::cout << n1.name;
+	std::cout << n2.name;
+	std::cout << n3.name;
+	BTNode* res = t.find(2);
+	if (res == NULL) std::cout << "\nStudent with ID: 2  Not Found!";
+	else res->printBTNode();
+
+	res = t.find(5);
+	if (res == NULL) std::cout << "\nStudent with ID: 5   Not Found!";
+	else res->printBTNode();
+
+
+	t.printTree(t.head);
+	t.remove(&n2);
+	std::cout << "\nafter removing\n";
+	t.printTree(t.head);
+}
+#pragma endregion
