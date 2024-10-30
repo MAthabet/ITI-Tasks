@@ -368,9 +368,24 @@ struct BinaryTree
 
 			return 0;
 		}
+		
+		//node has 2 child
+		BTNode* minNode = student->R;
 
-		//TODO : node has 2 child
-
+		if (student->parent->R = student)
+		{
+			student->parent->R = minNode;
+		}
+		else
+		{
+			student->parent->L = minNode;
+		}
+		while (minNode->L != NULL)
+		{
+			minNode = minNode->L;
+		}
+		minNode->L = student->L;
+		minNode->parent = student->parent;
 
 		return 0;
 	}
@@ -1097,27 +1112,31 @@ void qeueuMenu()
 
 void bstMenu()
 {
-	BTNode n1 = BTNode(5, "a");
-	BTNode n2 = BTNode(1, "b");
-	BTNode n3 = BTNode(9, "c");
+	BTNode n5 = BTNode(5, "a");
+	BTNode n1 = BTNode(1, "b");
+	BTNode n9 = BTNode(9, "c");
+	BTNode n10 = BTNode(10, "d");
+	BTNode n8 = BTNode(8, "e");
 	BinaryTree t;
+	t.insert(&n5);
 	t.insert(&n1);
-	t.insert(&n2);
-	t.insert(&n3);
-	std::cout << n1.name;
-	std::cout << n2.name;
-	std::cout << n3.name;
+	t.insert(&n9);
+	t.insert(&n10);
+	t.insert(&n8);
 	BTNode* res = t.find(2);
+	
+	printf("Searching fot student with ID: 2 ....\n");
 	if (res == NULL) std::cout << "\nStudent with ID: 2  Not Found!";
 	else res->printBTNode();
 
+	printf("Searching for student with ID: 5 ....\n");
 	res = t.find(5);
 	if (res == NULL) std::cout << "\nStudent with ID: 5   Not Found!";
 	else res->printBTNode();
 
-
+	printf("\nAll tree elemnts ....\n");
 	t.printTree(t.head);
-	t.remove(&n2);
+	t.remove(&n9);
 	std::cout << "\nafter removing\n";
 	t.printTree(t.head);
 }
