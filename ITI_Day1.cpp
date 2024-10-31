@@ -539,6 +539,7 @@ void mainMenu()
 	return;
 }
 
+
 #pragma region day1_tasks
 
 void sumAndAvg()
@@ -1154,6 +1155,7 @@ void bstMenu()
 }
 #pragma endregion
 
+#pragma region day5_tasks
 void compNUmMenu() 
 {
 	int a, b;
@@ -1184,3 +1186,5 @@ void compNUmMenu()
 	ans.print();
 	printf("\n");
 }
+
+#pragma endregion
