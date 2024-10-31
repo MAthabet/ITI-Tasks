@@ -17,5 +17,5 @@ public:
 	void print();
 	~ComplexNumber();
 };
-ComplexNumber* add(ComplexNumber* x, ComplexNumber* y);
-ComplexNumber* subtract(ComplexNumber* x, ComplexNumber* y);
+void add(ComplexNumber* x, ComplexNumber* y, ComplexNumber* ans);
+void subtract(ComplexNumber* x, ComplexNumber* y, ComplexNumber* ans);

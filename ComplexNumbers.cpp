@@ -49,18 +49,14 @@ void ComplexNumber::print()
 	printf("(%d + %di)", this->realNum, this->imaginryNum);
 }
 
-ComplexNumber* add(ComplexNumber* x, ComplexNumber* y)
+void add(ComplexNumber* x, ComplexNumber* y, ComplexNumber* ans)
 {
-	ComplexNumber ans;
-	ans.setRealNum(x->getRealNum() + y->getRealNum());
-	ans.setImgNum(x->getImgNum() + y->getImgNum());
-	return &ans;
+	ans->setRealNum(x->getRealNum() + y->getRealNum());
+	ans->setImgNum(x->getImgNum() + y->getImgNum());
 }
-ComplexNumber* subtract(ComplexNumber* x, ComplexNumber* y)
+void subtract(ComplexNumber* x, ComplexNumber* y, ComplexNumber* ans)
 {
-	ComplexNumber ans;
-	ans.setRealNum(x->getRealNum() - y->getRealNum());
-	ans.setImgNum(x->getImgNum() - y->getImgNum());
-	return &ans;
+	ans->setRealNum(x->getRealNum() - y->getRealNum());
+	ans->setImgNum(x->getImgNum() - y->getImgNum());
 }
 

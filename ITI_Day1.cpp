@@ -1078,16 +1078,17 @@ void compNUmMenu()
 	scanf("%d", &b);
 
 	ComplexNumber y = ComplexNumber(a, b);
-	ComplexNumber *ans = add(&x, &y);
+	ComplexNumber ans;
+	add(&x, &y,&ans);
 
 	printf("\n");
 	x.print();printf(" + ");y.print();printf(" = ");
-	ans->print();
+	ans.print();
 	printf("\n");
 
-	ans = subtract(&x, &y);
+	subtract(&x, &y,&ans);
 	x.print();printf(" - ");y.print();printf(" = ");
-	ans->print();
+	ans.print();
 	printf("\n");
 	printf("complex numbers counter : %d", ComplexNumber::counter);
 }
