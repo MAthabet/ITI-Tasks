@@ -21,6 +21,9 @@
     <ClCompile Include="ComplexNumbers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TresureHunt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="struct.h">
@@ -28,6 +31,9 @@
     </ClInclude>
     <ClInclude Include="ComplexNumbers.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TresureHunt.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

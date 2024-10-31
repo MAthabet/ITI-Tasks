@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "ComplexNumbers.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <conio.h>
@@ -411,7 +412,6 @@ void sumAndAvg();
 void tallestAndShortest();
 void tresureGame(char player);
 void returnToMainMenu();
-void printOutter();
 void findSizeOfStruct();
 void printTimeTapleOfNumber(int n, int i = 0);
 void invHandler();
@@ -590,108 +590,12 @@ void tallestAndShortest()
 	printf("\n shortest str: %s", str[shortestStrInd]);
 }
 
-void tresureGame(char player)
-{
-	char boundryArr[8][8] = 
-	{
-		{'*','*','*','*','*','*','*','*'},
-		{'*','*','*','*','*','*','*','*'},
-		{'*','*','*','*','*','*','*','*'},
-		{'*','*','*','*','*','*','*','*'},
-		{'*','*','*','*','*','*','*','*'},
-		{'*','*','*','*','*','*','*','*'},
-		{'*','*','*','*','*','*','*','*'},
-		{'*','*','*','*','*','X','*','*'}
-	};
-	int playerX = 1;
-	int playerY = 0;
-	boundryArr[playerY][playerX] = player;
-
-	//int boundryArrSize = sizeof(boundryArr) / sizeof(boundryArr[0]);
-
-	while (boundryArr[playerY][playerX] != 'X')
-	{
-		boundryArr[playerY][playerX] = player;
-		system("CLS");
-		printf("\nwelcome to Find the tresure Game \nuse WASD to move Q to quit\n");
-		printf("try to reach with %c to X \n", player);
-		printOutter();
-		for (int i = 0; i < 8; i++)
-		{
-			printf("|");
-			for (int j = 0; j < 8; j++) 
-				printf("%c", boundryArr[i][j]);
-			printf("|");
-			printf("\n");
-		}
-		printOutter();
-
-		while (!_kbhit());
-
-			char input = _getch();
-
-			switch (input)
-			{
-			case 'q':
-			case 'Q':
-				printf("\nGame Ended\n");
-				return;
-			case 'w':
-			case 'W':
-				if (playerY > 0)
-				{
-					system("CLS");
-					boundryArr[playerY][playerX] = '*';
-					playerY--;
-				}
-				break;
-			case 's':
-			case 'S':
-				if (playerY < 7)
-				{
-					system("CLS");
-					boundryArr[playerY][playerX] = '*';
-					playerY++;
-				}
-				break;
-			case 'a':
-			case 'A':
-				if (playerX > 0)
-				{
-					system("CLS");
-					boundryArr[playerY][playerX] = '*';
-					playerX--;
-				}
-				break;
-			case 'd':
-			case 'D':
-				if (playerX < 7)
-				{
-					system("CLS");
-					boundryArr[playerY][playerX] = '*';
-					playerX++;
-				}
-				break;
-			defult:
-				system("CLS");
-				break;
-			}
-	}
-	printf("\nYou Won!\n");
-	
-}
-
 void returnToMainMenu() {
 	printf("\npress Enter to Retrun to Previous Menu...");
 	while (_getch() != '\r');
 	system("CLS");
 }
 
-void printOutter() {
-	printf("+");
-	for (int i = 0; i < 8; i++) printf("-");
-	printf("+\n");
-}
 #pragma endregion
 
 #pragma region struct_tasks
@@ -1185,6 +1089,7 @@ void compNUmMenu()
 	x.print();printf(" - ");y.print();printf(" = ");
 	ans.print();
 	printf("\n");
+	printf("complex numbers counter : %d", ComplexNumber::counter);
 }
 
 #pragma endregion

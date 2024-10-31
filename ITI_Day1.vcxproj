@@ -129,10 +129,12 @@
   <ItemGroup>
     <ClCompile Include="ComplexNumbers.cpp" />
     <ClCompile Include="ITI_Day1.cpp" />
+    <ClCompile Include="TresureHunt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComplexNumbers.h" />
     <ClInclude Include="struct.h" />
+    <ClInclude Include="TresureHunt.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
