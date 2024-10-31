@@ -45,7 +45,7 @@ void tresureGame(char player)
 			break;
 		case 's':
 		case 'S':
-			if (game.getPlayerY() < 7)
+			if (game.getPlayerY() < rows)
 			{
 				system("CLS");
 				game.setCharAtCordinates(game.getPlayerx(), game.getPlayerY(), '*');
@@ -63,7 +63,7 @@ void tresureGame(char player)
 			break;
 		case 'd':
 		case 'D':
-			if (game.getPlayerx() < 7)
+			if (game.getPlayerx() < cols)
 			{
 				system("CLS");
 				game.setCharAtCordinates(game.getPlayerx(), game.getPlayerY(), '*');
