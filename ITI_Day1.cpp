@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
+#include "ComplexNumbers.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <conio.h>
@@ -9,7 +10,7 @@
 #include <iostream>
 
 
-
+#pragma region structs
 struct Item
 {
 	int itemID;
@@ -402,6 +403,7 @@ struct BinaryTree
 		printTree(node->R);
 	}
 };
+#pragma endregion
 
 #pragma region Funch_dec
 void mainMenu();
@@ -429,14 +431,15 @@ LinkedList mergeSort(LinkedList* LL);
 
 void qeueuMenu();
 void bstMenu();
+
+void compNUmMenu();
 #pragma endregion  
+
 int main()
 {
-	
 	mainMenu();
 }
 
-#pragma region day1_tasks
 void mainMenu() 
 {
 	printf(" 1- find the ASCII code of string\n 2- find the sum and average of array");
@@ -446,6 +449,7 @@ void mainMenu()
 	printf("\n 11- Employee Menu");
 	printf("\n 12- Qeueu Menu");
 	printf("\n 13- Binary Tree Menu");
+	printf("\n 14- Complex Numbers");
 	int x;
 	printf("\nEnter Your choice: ");
 	scanf("%d", &x);
@@ -521,6 +525,9 @@ void mainMenu()
 	case 13:
 		bstMenu();
 		break;
+	case 14:
+		compNUmMenu();
+		break;
 	default:
 		printf("\a please enter correct number");
 		printf("\n----------------------------------------------------------------\n");
@@ -531,6 +538,8 @@ void mainMenu()
 	mainMenu();
 	return;
 }
+
+#pragma region day1_tasks
 
 void sumAndAvg()
 {
@@ -1144,3 +1153,34 @@ void bstMenu()
 	t.printTree(t.head);
 }
 #pragma endregion
+
+void compNUmMenu() 
+{
+	int a, b;
+
+	printf("\nEnter first complex number (R +Ii):");
+	printf("\n Enter Real part : ");
+	scanf("%d", &a);
+	printf("\n Enter Imaginry part : ");
+	scanf("%d", &b);
+	ComplexNumber x = ComplexNumber(a, b);
+
+	printf("\nEnter Second complex number (R +Ii):");
+	printf("\n Enter Real part : ");
+	scanf("%d", &a);
+	printf("\n Enter Imaginry part : ");
+	scanf("%d", &b);
+
+	ComplexNumber y = ComplexNumber(a, b);
+	ComplexNumber ans = add(x, y);
+
+	printf("\n");
+	x.print();printf(" + ");y.print();printf(" = ");
+	ans.print();
+	printf("\n");
+
+	ans = subtract(x, y);
+	x.print();printf(" - ");y.print();printf(" = ");
+	ans.print();
+	printf("\n");
+}
