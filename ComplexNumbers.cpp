@@ -12,7 +12,7 @@ ComplexNumber::ComplexNumber()
 
 ComplexNumber::~ComplexNumber()
 {
-	//counter--;
+	counter--;
 }
 
 ComplexNumber::ComplexNumber(int r, int i)
@@ -49,18 +49,18 @@ void ComplexNumber::print()
 	printf("(%d + %di)", this->realNum, this->imaginryNum);
 }
 
-ComplexNumber add(ComplexNumber x, ComplexNumber y)
+ComplexNumber* add(ComplexNumber* x, ComplexNumber* y)
 {
 	ComplexNumber ans;
-	ans.setRealNum(x.getRealNum() + y.getRealNum());
-	ans.setImgNum(x.getImgNum() + y.getImgNum());
-	return ans;
+	ans.setRealNum(x->getRealNum() + y->getRealNum());
+	ans.setImgNum(x->getImgNum() + y->getImgNum());
+	return &ans;
 }
-ComplexNumber subtract(ComplexNumber x, ComplexNumber y)
+ComplexNumber* subtract(ComplexNumber* x, ComplexNumber* y)
 {
 	ComplexNumber ans;
-	ans.setRealNum(x.getRealNum() - y.getRealNum());
-	ans.setImgNum(x.getImgNum() - y.getImgNum());
-	return ans;
+	ans.setRealNum(x->getRealNum() - y->getRealNum());
+	ans.setImgNum(x->getImgNum() - y->getImgNum());
+	return &ans;
 }
 
