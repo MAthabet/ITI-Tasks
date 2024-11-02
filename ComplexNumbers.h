@@ -18,6 +18,14 @@ public:
 
 	ComplexNumber operator+ (ComplexNumber right);
 	ComplexNumber operator- (ComplexNumber right);
+	//prefix
+	ComplexNumber operator++ ();
+	ComplexNumber operator-- ();
+	//postfix
+	ComplexNumber operator++ (int);
+	ComplexNumber operator-- (int);
+
+	
 	bool operator== (ComplexNumber right);
 	bool operator!= (ComplexNumber right);
 	void operator= (ComplexNumber right);

@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "ComplexNumbers.h"
+#include "classes.cpp"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -433,6 +434,7 @@ void qeueuMenu();
 void bstMenu();
 
 void compNUmMenu();
+void classesMenu();
 #pragma endregion  
 
 int main()
@@ -450,6 +452,7 @@ void mainMenu()
 	printf("\n 12- Qeueu Menu");
 	printf("\n 13- Binary Tree Menu");
 	printf("\n 14- Complex Numbers");
+	printf("\n 15- Classes Task");
 	int x;
 	printf("\nEnter Your choice: ");
 	scanf("%d", &x);
@@ -527,6 +530,9 @@ void mainMenu()
 		break;
 	case 14:
 		compNUmMenu();
+		break;
+	case 15:
+		classesMenu();
 		break;
 	default:
 		printf("\a please enter correct number");
@@ -1059,40 +1065,26 @@ void bstMenu()
 }
 #pragma endregion
 
-#pragma region day5_tasks
-void compNUmMenu()
+void classesMenu()
 {
-	int a, b;
-
-	printf("\nEnter first complex number (R +Ii):");
-	printf("\n Enter Real part : ");
-	scanf("%d", &a);
-	printf("\n Enter Imaginry part : ");
-	scanf("%d", &b);
-	ComplexNumber x = ComplexNumber(a, b);
-
-	printf("\nEnter Second complex number (R +Ii):");
-	printf("\n Enter Real part : ");
-	scanf("%d", &a);
-	printf("\n Enter Imaginry part : ");
-	scanf("%d", &b);
-
-	ComplexNumber y = ComplexNumber(a, b);
-	ComplexNumber ans = x + y;
+	Car car;
+	car.model = "E200";
 
 
-	printf("\n");
-	x.print();printf(" + ");y.print();printf(" = ");
-	ans.print();
-	printf("\n");
 
-	ans = x - y;
-	x.print();printf(" - ");y.print();printf(" = ");
-	ans.print();
-	printf("\n");
-	printf("complex numbers counter : %d", ComplexNumber::counter);
-	printf("complex number as int : %d", (int)ans);
+	Driver driver("MA", 12);
+	driver.drive(car);
+
+	//should be error because there is no defult constractor in citizens class
+	//Driver driver2;
+
+	Company company;
+	company.companyName = "Mercedes";
+	company.addCar(&car);
+	company.printCars();
+
+	License license;
+	license.licNumber = "ABC123";
+	driver.license = license;
+
 }
-
-
-#pragma endregion

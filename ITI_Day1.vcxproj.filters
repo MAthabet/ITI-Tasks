@@ -24,6 +24,9 @@
     <ClCompile Include="TresureHunt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="classes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="struct.h">

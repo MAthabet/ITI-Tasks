@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="classes.cpp" />
     <ClCompile Include="ComplexNumbers.cpp" />
     <ClCompile Include="ITI_Day1.cpp" />
     <ClCompile Include="TresureHunt.cpp" />
