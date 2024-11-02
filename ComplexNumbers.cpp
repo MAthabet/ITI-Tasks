@@ -1,4 +1,6 @@
 #include "ComplexNumbers.h"
+
+#include "ComplexNumbers.h"
 #include <iostream>
 
 int ComplexNumber::counter = 0;
@@ -49,14 +51,38 @@ void ComplexNumber::print()
 	printf("(%d + %di)", this->realNum, this->imaginryNum);
 }
 
-void add(ComplexNumber* x, ComplexNumber* y, ComplexNumber* ans)
+ComplexNumber ComplexNumber::operator+ (ComplexNumber right)
 {
-	ans->setRealNum(x->getRealNum() + y->getRealNum());
-	ans->setImgNum(x->getImgNum() + y->getImgNum());
+	ComplexNumber ans;
+	ans.setRealNum(this->getRealNum() + right.getRealNum());
+	ans.setImgNum(this->getImgNum() + right.getImgNum());
+	return ans;
 }
-void subtract(ComplexNumber* x, ComplexNumber* y, ComplexNumber* ans)
+ComplexNumber ComplexNumber::operator- (ComplexNumber right)
 {
-	ans->setRealNum(x->getRealNum() - y->getRealNum());
-	ans->setImgNum(x->getImgNum() - y->getImgNum());
+	ComplexNumber ans;
+	ans.setRealNum(this->getRealNum() - right.getRealNum());
+	ans.setImgNum(this->getImgNum() - right.getImgNum());
+	return ans;
 }
+bool ComplexNumber::operator== (ComplexNumber right)
+{
+	if (this->getRealNum() == right.getRealNum())
+		if (this->getImgNum() == right.getImgNum())
+			return true;
+	return false;
+}
+bool ComplexNumber::operator!= (ComplexNumber right)
+{
+	if (this->getRealNum() != right.getRealNum()) return false;
+	if (this->getImgNum() != right.getImgNum()) return false;
+	return true;
+}
+void ComplexNumber::operator= (ComplexNumber right)
+{
+	this->setRealNum(right.getRealNum());
+	this->setImgNum(right.getImgNum());
+}
+
+
 

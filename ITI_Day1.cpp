@@ -1060,7 +1060,7 @@ void bstMenu()
 #pragma endregion
 
 #pragma region day5_tasks
-void compNUmMenu() 
+void compNUmMenu()
 {
 	int a, b;
 
@@ -1078,19 +1078,21 @@ void compNUmMenu()
 	scanf("%d", &b);
 
 	ComplexNumber y = ComplexNumber(a, b);
-	ComplexNumber ans;
-	add(&x, &y,&ans);
+	ComplexNumber ans = x + y;
+
 
 	printf("\n");
 	x.print();printf(" + ");y.print();printf(" = ");
 	ans.print();
 	printf("\n");
 
-	subtract(&x, &y,&ans);
+	ans = x - y;
 	x.print();printf(" - ");y.print();printf(" = ");
 	ans.print();
 	printf("\n");
 	printf("complex numbers counter : %d", ComplexNumber::counter);
+	printf("complex number as int : %d", (int)ans);
 }
+
 
 #pragma endregion
