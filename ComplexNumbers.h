@@ -22,10 +22,7 @@ public:
 	bool operator!= (ComplexNumber right);
 	void operator= (ComplexNumber right);
 
-	explicit operator int() const
-	{
-		return realNum;
-	}
+	explicit operator int();
 
 	~ComplexNumber();
 

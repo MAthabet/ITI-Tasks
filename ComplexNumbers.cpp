@@ -83,6 +83,8 @@ void ComplexNumber::operator= (ComplexNumber right)
 	this->setRealNum(right.getRealNum());
 	this->setImgNum(right.getImgNum());
 }
-
-
+ ComplexNumber::operator int() 
+{
+	return this->realNum;
+}
 
