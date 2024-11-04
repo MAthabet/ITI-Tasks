@@ -2,6 +2,7 @@
 
 #include "ComplexNumbers.h"
 #include "classes.cpp"
+#include "Day7.cpp"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -128,7 +129,7 @@ struct LinkedList
 		{
 			current = current->next;
 		}
-		
+
 		return current;
 	}
 	Node* findEmp(int id)
@@ -371,7 +372,7 @@ struct BinaryTree
 
 			return 0;
 		}
-		
+
 		//node has 2 child
 		BTNode* minNode = student->R;
 		if (head == student)
@@ -419,7 +420,7 @@ void invHandler();
 
 int factorialWithPointers(int* n);
 int factorialWithOutPointers(int n);
-void PowerWithPointers(int*a, int b, int res = 1);
+void PowerWithPointers(int* a, int b, int res = 1);
 int PowerWithOutPointers(int a, int b);
 
 void sortingMenu();
@@ -436,13 +437,50 @@ void bstMenu();
 void compNUmMenu();
 void classesMenu();
 #pragma endregion  
+void abstractClassMenuTask()
+{
+	float avg = 0;
+	GeometricShape a;
+	Circle c;
+	Triangle t;
+	Rectangle r;
+	Square s;
+	vector<GeometricShape*> shapes;
+	a.area = 0;
 
+	c.radius = 1;
+
+	t.base = 2;
+	t.hight = 1;
+
+	r.length = 1;
+	r.width = 2;
+
+	s.L = 2;
+
+	shapes.push_back(&a);
+	shapes.push_back(&c);
+	shapes.push_back(&t);
+	shapes.push_back(&r);
+	shapes.push_back(&s);
+
+
+	for (int i = shapes.size() - 1; i >= 0; i--)
+	{
+		cout << "Shape " << i << " area :" << shapes[i]->clacArea() << "\n";
+		avg += shapes[i]->clacArea();
+	}
+
+	avg /= shapes.size();
+	cout << "avg area : " << avg << "\n";
+
+}
 int main()
 {
 	mainMenu();
 }
 
-void mainMenu() 
+void mainMenu()
 {
 	printf(" 1- find the ASCII code of string\n 2- find the sum and average of array");
 	printf("\n 3- find the tallset and shortest sentence \n 4-find the tresure game \n 5- game elemwnt structs size \n 6- factorial");
@@ -453,6 +491,7 @@ void mainMenu()
 	printf("\n 13- Binary Tree Menu");
 	printf("\n 14- Complex Numbers");
 	printf("\n 15- Classes Task");
+	printf("\n 16- Abstract calss Task");
 	int x;
 	printf("\nEnter Your choice: ");
 	scanf("%d", &x);
@@ -472,7 +511,7 @@ void mainMenu()
 			i++;
 		}
 	}
-		break;
+	break;
 	case 2:
 		sumAndAvg();
 		break;
@@ -493,7 +532,7 @@ void mainMenu()
 		printf("\nenter a number");
 		int n;
 		scanf("%d", &n);
-		printf("%d",factorialWithPointers(&n));
+		printf("%d", factorialWithPointers(&n));
 		break;
 	case 7:
 	{
@@ -533,6 +572,9 @@ void mainMenu()
 		break;
 	case 15:
 		classesMenu();
+		break;
+	case 16:
+		abstractClassMenuTask();
 		break;
 	default:
 		printf("\a please enter correct number");
@@ -605,7 +647,7 @@ void returnToMainMenu() {
 #pragma endregion
 
 #pragma region struct_tasks
-void findSizeOfStruct() 
+void findSizeOfStruct()
 {
 	printf("Size of position struct is: %d\n", sizeof(Position));
 	printf("Size of Rotation struct is: %d\n", sizeof(Rotation));
@@ -617,7 +659,7 @@ void printTimeTapleOfNumber(int n, int i)
 {
 	if (i == 11) return;
 	printf("%d * %d = %d\n", n, i, n * i);
-	printTimeTapleOfNumber(n, i + 1);	
+	printTimeTapleOfNumber(n, i + 1);
 }
 
 void invHandler()
@@ -662,20 +704,20 @@ void invHandler()
 	}
 }
 
-int factorialWithPointers (int* n)
+int factorialWithPointers(int* n)
 {
 	if (*n < 2) return 1;
 	int num = *n - 1;
 	return *n * factorialWithPointers(&num);
 }
 int factorialWithOutPointers(int n)
-{	
-	if (n < 2) return n;
-	return n * factorialWithOutPointers(n-1);
-}
-void PowerWithPointers(int* a, int b,int res)
 {
-	
+	if (n < 2) return n;
+	return n * factorialWithOutPointers(n - 1);
+}
+void PowerWithPointers(int* a, int b, int res)
+{
+
 	if (b < 1)
 	{
 		*a = res;
@@ -749,7 +791,7 @@ void sortingMenu()
 			returnToMainMenu();
 			break;
 		case 4:
-			
+
 			flag = false;
 			break;
 
@@ -823,9 +865,9 @@ void employeeMenu()
 			std::cin >> temp;
 			Node emp0 = Node(temp, id);
 			Employees.addEmp(&emp0);
-			std::cout << "Employee with ID: "<<emp0.ID<<" And name : " << emp0.Name;
+			std::cout << "Employee with ID: " << emp0.ID << " And name : " << emp0.Name;
 			std::cout << " is added\n";
-			
+
 			returnToMainMenu();
 			break;
 		}
@@ -928,7 +970,7 @@ void insertSort(std::vector<int>* arr)
 LinkedList mergeSort(LinkedList* LL)
 {
 	int size = LL->Size();
-	
+
 	if (size == 1) return *LL;
 	if (size == 2)
 	{
@@ -946,7 +988,7 @@ LinkedList mergeSort(LinkedList* LL)
 		}
 		return *LL;
 	}
-	
+
 	int last = size - 1;
 	int first = 0;
 	int mid = (first + last) / 2;
@@ -956,7 +998,7 @@ LinkedList mergeSort(LinkedList* LL)
 		Node node = *(LL->getNode(i));
 		ll1.push(node);
 	}
-	for (int i = mid+1; i <= last; i++)
+	for (int i = mid + 1; i <= last; i++)
 	{
 		Node node = *(LL->getNode(i));
 		ll2.push(node);
@@ -985,7 +1027,7 @@ LinkedList mergeSort(LinkedList* LL)
 	}
 	if (i >= ll1Size)
 	{
-		for (;j< ll2Size;j++)
+		for (;j < ll2Size;j++)
 			sorted.push(*(ll2.getNode(j)));
 		return sorted;
 	}
@@ -1002,9 +1044,9 @@ LinkedList mergeSort(LinkedList* LL)
 void qeueuMenu()
 {
 	Qeueu q;
-	Node a = Node ("a" ,1);
-	Node b = Node ("b" ,2);
-	Node c = Node ("c" ,3);
+	Node a = Node("a", 1);
+	Node b = Node("b", 2);
+	Node c = Node("c", 3);
 
 	q.enqueue(&a);
 	q.enqueue(&b);
@@ -1027,7 +1069,7 @@ void qeueuMenu()
 	q.printQ();
 	std::cout << "\n-------\n";
 
-	Node e = Node("e",5);
+	Node e = Node("e", 5);
 
 	q.enqeueuAtIndex(&e, 1);
 	q.printQ();
@@ -1047,7 +1089,7 @@ void bstMenu()
 	t.insert(&n10);
 	t.insert(&n8);
 	BTNode* res = t.find(2);
-	
+
 	printf("Searching fot student with ID: 2 ....\n");
 	if (res == NULL) std::cout << "\nStudent with ID: 2  Not Found!";
 	else res->printBTNode();
